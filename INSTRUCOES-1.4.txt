@@ -1,0 +1,70 @@
+COLÉGIO ÚNICO 1.4.0
+- Desenvolvido por Arthur Magalhães
+
+VISÃO GERAL AJUSTÁVEL
+Clique em Ajustar Visão geral.
+- Arraste o título de um bloco para a posição de outro ou use as setas.
+- Largura: 25%, 33%, 50%, 67%, 75% ou 100%.
+- Altura: entre 220 e 1000 pixels. Confirme saindo do campo.
+- Calendário, banner, indicadores, acessos rápidos e anotações são ajustáveis.
+- Clique em Concluir ajustes para ocultar os controles.
+- Restaurar padrão recupera os tamanhos e a ordem originais após confirmação.
+A organização é salva automaticamente neste navegador. Não acompanha o
+backup da base nem altera a visão de outros dispositivos. Limpar os dados
+do navegador remove essa preferência. Em telas estreitas, os blocos ocupam
+a largura inteira para facilitar a leitura; a configuração é mantida para desktop.
+
+ATUALIZAÇÕES PELO REPOSITÓRIO
+Repositório: https://github.com/arthurmagalhaesagsm-source/amdev.apps
+Branch: main
+Executável: Colegio-Unico.exe
+Manifesto: atualizacao.json
+
+Esta versão está configurada para consultar:
+https://raw.githubusercontent.com/arthurmagalhaesagsm-source/amdev.apps/main/atualizacao.json
+
+O manifesto informa a versão, o link direto do EXE e seu SHA-256.
+O pacote já inclui o manifesto correspondente ao EXE 1.4.0.
+Publique os dois arquivos juntos na raiz do repositório, preferencialmente
+no mesmo commit. Não renomeie os arquivos. Não envie o ZIP no lugar deles.
+Se publicar separadamente, envie primeiro o EXE e por último o manifesto.
+O repositório precisa permitir download público desses arquivos.
+A página github.com/.../blob/... do EXE não é um download direto; ao colar
+o link informado pelo usuário na aba Atualizações, o programa o converte
+para o endereço oficial do manifesto.
+
+O programa verifica ao abrir e a cada 6 horas. Baixa somente versões maiores
+que a instalada e confere a integridade antes de preparar a instalação.
+A instalação acontece ao clicar em Encerrar programa. Aguarde alguns segundos
+antes de reabrir. Fechar apenas a janela não instala a atualização.
+Use Verificar agora para consultar manualmente. Falhas aparecem na aba.
+A atualização automática de executável é exclusiva do Windows.
+
+Em instalações novas, a consulta oficial vem ativada. Uma configuração
+anterior com endereço próprio ou desativação explícita é preservada.
+Para usar o repositório oficial nessas instalações, abra Atualizações,
+informe o endereço acima, marque a opção automática e salve.
+Se sua versão anterior ainda não possui endereço configurado, instale a
+1.4.0 manualmente ou configure o manifesto na versão anterior.
+
+Para versões futuras, após compilar e aumentar appVersion, execute na
+pasta codigo-fonte (requer Python):
+python publicar-versao.py ../Colegio-Unico.exe VERSAO https://raw.githubusercontent.com/arthurmagalhaesagsm-source/amdev.apps/main/Colegio-Unico.exe --saida ../atualizacao.json
+Troque VERSAO pelo número compilado, por exemplo 1.4.1.
+Publique novamente o EXE e o manifesto gerado. Não reutilize um hash antigo.
+
+ENTREGA
+Esta entrega prepara os arquivos. Não foi feito upload ou commit no GitHub.
+O repositório consultado ainda não continha atualizacao.json nesta verificação.
+As instruções 1.4 prevalecem sobre documentos anteriores.
+Hospedagem online, SMTP e sincronização permanecem com os requisitos
+indicados em INSTRUCOES-1.3.txt. GitHub hospeda as atualizações; isso não
+coloca a base escolar ou o servidor da plataforma online.
+
+TESTES
+Testes Go aprovados, incluindo configuração oficial, normalização do link,
+preservação da desativação e verificação de hash/versão.
+Testes DOM aprovados para dimensões, ordem, persistência, restauração,
+validação de preferências e presença do relógio.
+Compilação para Windows x64 e Linux x64. Não foi testada a substituição
+real do executável em um sistema Windows.

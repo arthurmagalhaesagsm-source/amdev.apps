@@ -1,3 +1,6 @@
+VERSÃO 1.4: leia primeiro INSTRUCOES-1.4.txt para o layout ajustável e as
+atualizações pelo repositório oficial.
+
 ATUALIZAÇÃO 1.3: leia primeiro INSTRUCOES-1.3.txt. As instruções abaixo
 descrevem a versão anterior; as instruções 1.3 prevalecem em caso de diferença.
 
