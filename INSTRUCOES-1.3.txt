@@ -1,0 +1,105 @@
+COLÉGIO ÚNICO | VERSÃO 1.3.0
+- Desenvolvido por Arthur Magalhães
+
+ATUALIZAR NO WINDOWS
+1. Encerre a versão anterior pelo botão Encerrar programa.
+2. Extraia este ZIP em uma pasta nova e abra Colegio-Unico.exe.
+3. A pasta de dados existente é reutilizada. Os dados não ficam dentro deste ZIP.
+4. Antes de atualizar, exporte uma cópia em Backup e dados.
+
+NOVIDADES
+- Cada aluno possui botões Lançar notas e Anotações. Lançar notas abre
+  um formulário individual. Anotações abre o histórico filtrado do aluno;
+  Nova anotação já seleciona esse aluno.
+- Menu lateral Disciplinas: adicionar e remover disciplinas sem histórico.
+- Frequência e Notas usam seleção de disciplinas, incluindo nomes já usados
+  em registros antigos, para preservar o histórico.
+- Avaliações: Trabalho em Grupo, Trabalho Individual, Atividades,
+  Atividade Avaliativa, Prova Parcial e Prova Final.
+- Visão geral: relógio em tempo real e calendário do mês, com eventos destacados.
+
+BACKUP DIÁRIO POR E-MAIL
+O recurso está implementado, mas NÃO está ativado por padrão.
+Em Professores, cadastre o e-mail. Em Backup e dados, escolha o professor,
+defina a hora (0 a 23) e ative o envio após configurar a conta SMTP.
+O anexo contém a base COMPLETA, incluindo fotos e anotações. Selecione
+somente o professor responsável pela guarda desses dados.
+O programa deve permanecer aberto, com internet. No servidor online, deve
+rodar como serviço permanente. Computador desligado não envia backup.
+Ao iniciar após o horário escolhido, tenta enviar o backup do dia atual.
+Não recria backups de dias em que o programa permaneceu desligado.
+Em caso de falha, tenta novamente a cada cinco minutos. A aba mostra o estado.
+O horário usa o fuso do computador/servidor; configure America/Sao_Paulo.
+O limite de tamanho do anexo depende do provedor do e-mail.
+
+Configurar as variáveis de ambiente antes de abrir o programa:
+COLEGIO_SMTP_HOST = servidor SMTP do provedor
+COLEGIO_SMTP_PORT = 587 (STARTTLS) ou 465 (TLS direto)
+COLEGIO_SMTP_USER = usuário da conta de envio
+COLEGIO_SMTP_PASSWORD = senha de aplicativo ou credencial SMTP
+COLEGIO_SMTP_FROM = endereço de e-mail da conta de envio
+
+Use o painel de variáveis de ambiente do Windows ou a configuração privada
+do serviço no servidor. Não coloque senhas em arquivos compartilhados.
+Esta versão aceita autenticação SMTP por usuário/senha sobre TLS.
+Provedores que exigem exclusivamente OAuth precisam de integração adicional.
+Nenhuma credencial de envio acompanha este pacote. Nenhum e-mail real foi
+enviado nos testes, pois a conta ainda não foi configurada.
+
+ACESSO ONLINE
+O pacote inclui um modo servidor HTTPS, mas NÃO está publicado na internet.
+O usuário informou que ainda não possui servidor. Para disponibilizá-lo,
+é necessário contratar/provisionar hospedagem que execute aplicações Go
+com disco persistente e configure domínio e certificado TLS válido.
+Uma hospedagem apenas de arquivos HTML não executa este servidor.
+
+Binários:
+- Colegio-Unico.exe: Windows x64, uso local por padrão.
+- Colegio-Unico-Servidor-Linux: Linux x64 para instalação em servidor.
+
+Variáveis para modo online:
+COLEGIO_PUBLIC_URL = https://escola.seudominio.com (sem barra final)
+COLEGIO_LISTEN = 0.0.0.0:443 (ou outra porta que corresponda à URL pública)
+COLEGIO_TLS_CERT = caminho do certificado PEM/fullchain
+COLEGIO_TLS_KEY = caminho da chave privada PEM
+COLEGIO_ACCESS_TOKEN = chave aleatória secreta com pelo menos 64 caracteres
+COLEGIO_DATA = caminho de diretório persistente exclusivo desta base
+COLEGIO_NO_BROWSER = 1
+
+O programa valida HTTPS, certificado e tamanho mínimo da chave ao iniciar.
+Gere a chave com gerador criptográfico. Não reutilize senhas pessoais.
+No navegador, abra a URL com /# seguido da chave de acesso. A aplicação
+remove a chave da barra e guarda a sessão nessa aba. Compartilhe a chave
+somente com responsáveis administrativos. Feche a aba ao terminar.
+O modo online não permite encerrar o servidor nem instalar atualizações pela UI.
+Configure reinício automático, renovação TLS e cópias externas no servidor.
+Faça a migração inicial via Exportar/Restaurar backup, com confirmação.
+Local e servidor têm bases separadas, sem sincronização automática.
+
+IMPORTANTE: o modo servidor atual usa UMA chave administrativa e UMA base.
+Todos os portadores da chave podem acessar e alterar a base inteira.
+O cadastro de professor NÃO cria uma conta de login.
+Portanto, NÃO use esse modo para compartilhar somente notas finais.
+Atualizações concorrentes são recusadas para evitar sobrescrever outra janela.
+
+SINCRONIZAR APENAS NOTAS FINAIS: VIABILIDADE E PRÓXIMOS REQUISITOS
+É possível, mas não está implementado/ativado nesta versão.
+Será necessário:
+1. Criar contas individuais autenticadas e autorizações por turma/disciplina.
+2. Definir um identificador comum de aluno, escola, ano e disciplina.
+3. Definir se nota final significa média anual, bimestral ou nota homologada.
+4. Definir fórmula, pesos e tratamento de recuperação antes de publicar notas.
+5. Enviar apenas identificador, disciplina, período e resultado final autorizado.
+   Frequência, fotos, anotações e notas parciais ficam fora da sincronização.
+6. Guardar autoria/versão, revogar acesso e resolver conflitos sem sobrescrever
+   silenciosamente alterações de outro professor.
+A média atual do boletim é soma de pontos / soma dos máximos x 10.
+Prova Final é um TIPO de avaliação, não um resultado final consolidado.
+
+VERIFICAÇÃO
+Testes Go: validação da base, compatibilidade, disciplinas, configurações de
+backup, horário/duplicação diária e bloqueio de configuração online insegura.
+Testes de interface em DOM: calendário, disciplinas, seis avaliações,
+lançamento individual e seleção do aluno nas anotações.
+Compilação para Windows x64 e Linux x64. O executável Windows não foi
+executado em um computador Windows neste ambiente de desenvolvimento.

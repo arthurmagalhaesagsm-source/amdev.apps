@@ -1,0 +1,147 @@
+ATUALIZAÇÃO 1.3: leia primeiro INSTRUCOES-1.3.txt. As instruções abaixo
+descrevem a versão anterior; as instruções 1.3 prevalecem em caso de diferença.
+
+COLÉGIO ÚNICO PINGO DE GENTE
+Gestão Escolar | Versão 1.2.0
+
+COMO ABRIR
+1. Extraia todos os arquivos deste ZIP para uma pasta do computador.
+2. Abra Colegio-Unico.exe com dois cliques.
+3. A interface abre em uma janela do Microsoft Edge ou Google Chrome.
+   Se esses navegadores não forem encontrados, usa o navegador padrão.
+4. Não precisa instalar Python, Java ou banco de dados. Não requer internet.
+
+REQUISITOS
+Windows 10 ou 11, 64 bits; Edge ou Chrome instalado.
+Executável sem assinatura digital comercial. O Windows pode exibir aviso
+sobre o editor desconhecido. A versão Windows foi compilada neste ambiente,
+mas não foi executada em um computador Windows durante a criação.
+
+PRIMEIROS PASSOS
+Cadastre professores, depois turmas e depois alunos. Na turma, informe o ano
+letivo. Crie uma nova turma a cada ano para separar o histórico.
+O cadastro de aluno aceita matrícula, nascimento, responsável e telefone.
+A matrícula, quando informada, não pode se repetir.
+Aluno inativo continua com seu histórico, mas não aparece em novas chamadas.
+Excluir aluno remove definitivamente seus registros, mediante confirmação.
+
+FREQUÊNCIA
+Selecione turma, data e disciplina e clique em Carregar alunos.
+Marque Presente, Falta ou Falta justificada. Salve a frequência.
+A mesma turma, data e disciplina permite revisar a chamada existente.
+Uma chamada conta como uma unidade no percentual, sem carga horária.
+Faltas justificadas contam como ausências. Não são abonadas automaticamente.
+Para excluir um lançamento, gere o boletim e abra os registros de frequência.
+
+NOTAS
+Preencha turma, data, disciplina, bimestre, nome da avaliação e valor máximo
+ANTES de carregar os alunos. Lance as notas e clique em Salvar notas.
+Campos vazios não removem nem alteram notas já salvas. Zero é uma nota válida.
+A mesma avaliação, data, turma, disciplina e bimestre atualiza o lançamento.
+Use Editar ou Excluir na lista de notas para corrigir registros individuais.
+
+MÉDIA E BOLETIM
+Média na escala 0 a 10 = soma dos pontos obtidos / soma dos pontos máximos * 10.
+Avaliações de maior valor têm maior peso. Não há regra automática de aprovação,
+recuperação, conselho de classe ou exigência de uma média mínima.
+No boletim, selecione a turma/ano para não juntar anos diferentes.
+Bimestre filtra notas; datas filtram frequência e anotações.
+As anotações ficam fora da impressão até marcar a opção de incluí-las.
+Imprimir / PDF abre a impressão do navegador, onde é possível salvar como PDF.
+
+ANOTAÇÕES
+Registros por aluno, data, categoria, autor e texto livre.
+Podem ser consultados, editados, excluídos e incluídos opcionalmente no boletim.
+
+DADOS E BACKUP
+Os registros são salvos automaticamente após cada confirmação em:
+%APPDATA%\ColegioUnicoPingoDeGente\dados.json
+A pasta exata aparece na tela Backup e dados.
+O executável não guarda dados dentro de si. Pode ser movido sem perder registros.
+A pasta backups contém a base anterior à primeira alteração de cada dia e a
+base anterior à última alteração. Backups locais não protegem contra perda do disco.
+Use Exportar backup completo e guarde uma cópia em outro dispositivo.
+Restaurar substitui toda a base, não mescla cadastros. Há confirmação e validação.
+
+SE OS DADOS NÃO ABRIREM
+Encerre o programa. Copie toda a pasta de dados para preservar o conteúdo.
+Copie um arquivo válido da pasta backups para dados.json e abra o programa.
+Se houver dúvida, mantenha a cópia original e procure suporte antes de substituir.
+
+USO E LIMITES
+Versão local, para um computador e uma conta do Windows. Não possui acesso
+simultâneo pela rede, contas por professor ou sincronização em nuvem.
+A proteção de acesso depende da conta do Windows. Base e backups não são
+criptografados. Restrinja o acesso à pasta por conter informações de alunos.
+Os arquivos CSV são exportações para consulta, não backups para restauração.
+Para fechar o processo local, clique em Encerrar programa na barra lateral.
+Fechar só a janela mantém o programa disponível até encerrar a sessão do Windows.
+A comunicação ocorre apenas em 127.0.0.1:47831, com token de sessão local.
+Se essa porta estiver ocupada por outro programa, feche o outro programa.
+
+CÓDIGO-FONTE
+A pasta codigo-fonte contém a implementação e os testes do armazenamento.
+Com Go 1.23 ou superior: go test ./...
+Para recompilar no Windows (Prompt de Comando), dentro dessa pasta:
+go build -buildvcs=false -trimpath -ldflags="-H windowsgui -s -w" -o Colegio-Unico.exe .
+
+NOVIDADES DA VERSÃO 1.1.0
+FOTOS: em Alunos ou Professores, clique em Cadastrar/Editar e selecione a foto.
+Aceita JPG, PNG e WebP de até 10 MB. A foto é reduzida para até 320 pixels,
+salva com o cadastro e incluída nos backups. Para excluir, use Remover foto.
+
+IMPORTAR ALUNOS: Alunos > Importar PDF / Excel.
+1. Selecione .xlsx, .xls, .csv ou PDF com texto selecionável (até 20 MB).
+2. Escolha a turma de destino e, no Excel, a planilha desejada.
+3. Confira a primeira linha de dados e o campo correspondente a cada coluna.
+4. Gere a prévia. Corrija os campos e desmarque títulos, rodapés e linhas extras.
+5. Clique em Incluir alunos. Os selecionados são cadastrados em lote.
+Nome é obrigatório. Matrícula, nascimento, responsável, telefone e situação
+são opcionais. Use datas dd/mm/aaaa ou aaaa-mm-dd. Situação vazia vira Ativo.
+Matrículas repetidas e nomes iguais na mesma turma são ignorados. Homônimos
+precisam de conferência e podem ser cadastrados manualmente. Nenhum registro
+existente é sobrescrito pela importação. A turma escolhida vale para todo o lote.
+Para listas sem cabeçalho, escolha manualmente as colunas. PDF deve ter uma
+linha por aluno. A leitura de colunas depende do espaçamento do documento.
+PDFs escaneados como imagem precisam de OCR prévio. Não há OCR embutido.
+O processamento é local e não exige internet. Até 10.000 linhas por arquivo.
+
+ATUALIZAR A VERSÃO ANTERIOR
+Exporte um backup. No programa antigo, clique em Encerrar programa (fechar só
+a janela não encerra o processo). Extraia este ZIP e abra o novo executável.
+A pasta de dados permanece a mesma; os cadastros existentes são carregados.
+Use a versão nova também para restaurar backups que contenham fotos.
+O símbolo enviado foi aplicado ao ícone do EXE e ao ícone do navegador.
+A marca do colégio nas telas e nos boletins foi preservada.
+
+VERIFICAÇÕES DESTA ATUALIZAÇÃO
+Testes de persistência/backup e compatibilidade de fotos executados em Go.
+Fluxos verificados em DOM simulado: fotos, prévia/importação Excel, datas,
+matrículas com zeros iniciais, duplicação e remoção de foto.
+Extração real de PDF tabular testada. O navegador de teste não pôde ser aberto
+neste ambiente. Executável compilado para Windows x64, sem execução em Windows.
+Bibliotecas locais: SheetJS CE 0.20.3 e PDF.js 5.6.205 (legacy build).
+Licenças incluídas em codigo-fonte/web/vendor.
+
+
+NOVIDADES DA VERSÃO 1.2.0
+FOTOS: exibição circular de 76 pixels nas listagens e de 160 pixels no cadastro.
+Um círculo reservado aparece quando ainda não há foto. O corte visual é central.
+CALENDÁRIO LETIVO: nova aba com os 12 meses e seleção de ano (2000 a 2100).
+Clique em uma data ou em Novo evento. Informe título, início, fim, categoria
+(Aula, Feriado, Recesso, Avaliação, Reunião ou Evento) e descrição opcional.
+Edite ou exclua eventos na programação abaixo dos meses. Dias com registros
+ficam destacados. Períodos podem atravessar meses e anos. Nenhum feriado é
+inserido automaticamente. O calendário faz parte dos dados e dos backups.
+Backups antigos são aceitos e restauram um calendário vazio. Backups novos
+com calendário devem ser restaurados usando a versão 1.2.0 ou superior.
+ATUALIZAÇÕES: nova aba para configurar uma fonte HTTPS de novas versões.
+Consulte ATUALIZACOES-ONLINE.txt. Falta definir e publicar a fonte para ativar.
+
+VERIFICAÇÕES DA VERSÃO 1.2.0
+Passaram os testes Go de validação, fotos, backup, calendário, versões,
+integridade de download e configuração de atualizações. Passaram os testes
+DOM de fotos, importação, calendário bissexto, criação/edição/exclusão,
+datas invertidas e tratamento de texto. Não foi possível iniciar o navegador
+de teste neste ambiente. O EXE e a instalação automática não foram executados
+em Windows neste ambiente; requerem validação no computador de destino.

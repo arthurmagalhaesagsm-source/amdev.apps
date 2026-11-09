@@ -1,0 +1,51 @@
+ATUALIZAÇÕES ONLINE | VERSÃO 1.2.0
+
+A infraestrutura do atualizador está incluída. Não há servidor de publicação
+configurado neste pacote, portanto nenhuma atualização online está ativa ainda.
+
+CONFIGURAÇÃO ÚNICA
+O responsável técnico deve hospedar o EXE e um manifesto JSON em um endereço
+HTTPS estável, por exemplo, no site da escola ou em um repositório de releases.
+Os links devem entregar os arquivos diretamente, sem tela de login.
+Na aba Atualizações, informe a URL do manifesto, marque a busca automática e
+salve. O programa verifica ao abrir e a cada 6 horas enquanto está em execução.
+Não envia cadastros, fotografias ou calendário para esse endereço.
+
+PUBLICAR UMA VERSÃO NOVA
+1. Atualize appVersion em codigo-fonte/update.go e os textos de versão da tela.
+2. Compile e teste o executável Windows. Use sempre o mesmo esquema de dados
+   ou implemente uma migração compatível antes de publicar.
+3. Hospede o novo EXE em uma URL HTTPS própria dessa versão.
+4. Com Python, execute (substitua os exemplos pelos valores reais):
+   python publicar-versao.py Colegio-Unico.exe 1.2.1 https://SEU-DOMINIO/1.2.1/Colegio-Unico.exe
+5. Publique o arquivo atualizacao.json gerado na URL configurada no programa.
+   Publique o manifesto somente DEPOIS de o EXE estar disponível.
+O helper está na pasta codigo-fonte e calcula o SHA-256 automaticamente.
+Nunca use o endereço de uma página de visualização como link do EXE.
+
+INSTALAÇÃO
+O programa baixa a versão mais nova e verifica o SHA-256 informado pelo servidor.
+A aba Atualizações informa quando o pacote está pronto.
+Use Encerrar programa, na barra lateral. O instalador aguarda o processo fechar,
+confere novamente o SHA-256, guarda o EXE anterior com sufixo .previous e troca
+o executável. Aguarde alguns segundos antes de abrir novamente.
+Fechar apenas a janela do navegador não encerra o programa nem instala.
+A instalação usa o Windows PowerShell. Políticas do Windows podem bloqueá-la.
+O programa precisa estar em uma pasta com permissão de escrita do usuário.
+Nenhuma pasta de cadastros é substituída. A configuração de atualizações fica
+em atualizacoes.json, separada dos backups de cadastros.
+
+SE HOUVER FALHA
+Falhas de consulta/download são exibidas na aba Atualizações e não substituem
+o programa. Falhas de cópia tentam restaurar o EXE anterior e são registradas
+em erro-atualizacao.txt na pasta de dados, quando o script consegue executar.
+Sem internet, o sistema escolar continua funcionando localmente.
+Mantenha a fonte de publicação sob controle: HTTPS e SHA-256 protegem o transporte
+e a integridade, mas o manifesto não possui assinatura criptográfica independente.
+Se o servidor de publicação for comprometido, o atualizador não distingue uma
+versão maliciosa publicada nesse servidor. Não configure fontes desconhecidas.
+
+VALIDAÇÃO
+Testes automatizados cobrem versões, URLs, integridade, configuração persistida,
+calendário, cadastros, fotos e backups. Compilação Windows x64 concluída.
+A troca de executável via PowerShell ainda precisa de teste em Windows real.
